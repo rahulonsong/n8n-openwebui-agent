@@ -1,0 +1,120 @@
+{
+    "name": "n8n_pipe",
+    "description": "Connect to an n8n workflow to use n8n-powered AI agents in Open WebUI",
+    "icon": "🔌",
+    "openapi_schema": {
+        "openapi": "3.0.0",
+        "info": {
+            "title": "n8n Pipe API",
+            "description": "API to connect Open WebUI with n8n workflows",
+            "version": "1.0.0"
+        },
+        "servers": [
+            {
+                "url": "https://your-n8n-instance.com",
+                "description": "n8n Server"
+            }
+        ],
+        "paths": {
+            "/webhook/invoke-n8n-agent": {
+                "post": {
+                    "summary": "Invoke n8n Agent",
+                    "description": "Send a message to the n8n agent and get a response",
+                    "operationId": "invokeAgent",
+                    "requestBody": {
+                        "required": true,
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "chatInput": {
+                                            "type": "string",
+                                            "description": "The user's message"
+                                        },
+                                        "sessionId": {
+                                            "type": "string",
+                                            "description": "Unique identifier for the conversation session"
+                                        }
+                                    },
+                                    "required": [
+                                        "chatInput",
+                                        "sessionId"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "responses": {
+                        "200": {
+                            "description": "Successful response from the agent",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "output": {
+                                                "type": "string",
+                                                "description": "Agent's response message"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "401": {
+                            "description": "Unauthorized"
+                        },
+                        "500": {
+                            "description": "Server error"
+                        }
+                    },
+                    "security": [
+                        {
+                            "BearerAuth": []
+                        }
+                    ]
+                }
+            }
+        },
+        "components": {
+            "securitySchemes": {
+                "BearerAuth": {
+                    "type": "http",
+                    "scheme": "bearer"
+                }
+            }
+        }
+    },
+    "logo_url": "",
+    "contact_email": "",
+    "legal_info_url": "",
+    "valves": {
+        "n8n_webhook_url": {
+            "name": "n8n Webhook URL",
+            "description": "Full URL to your n8n webhook (e.g., http://localhost:5678/webhook/invoke-n8n-agent)",
+            "type": "string",
+            "required": true
+        },
+        "bearer_token": {
+            "name": "Bearer Token",
+            "description": "Authentication token for the n8n webhook",
+            "type": "string",
+            "required": true
+        },
+        "input_field_key": {
+            "name": "Input Field Key",
+            "description": "The field key for the user input in the n8n workflow (default: chatInput)",
+            "type": "string",
+            "default": "chatInput",
+            "required": true
+        },
+        "output_field_key": {
+            "name": "Output Field Key",
+            "description": "The field key for the response in the n8n workflow (default: output)",
+            "type": "string",
+            "default": "output",
+            "required": true
+        }
+    }
+}
