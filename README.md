@@ -58,6 +58,14 @@ Before setting up this integration, make sure you have:
    - Use the n8n agent function in your conversation
    - The n8n agent should respond based on your configuration
 
+## Documentation
+
+For more detailed information, check out these documentation files:
+
+- [Detailed Setup Guide](docs/setup-guide.md) - Step-by-step instructions for setting up the integration
+- [Integration Workflow Diagram](docs/integration-diagram.md) - Visual representation of how the components work together
+- [Example Usage](docs/example-usage.md) - Examples of how to use the integration in practice
+
 ## Detailed Setup Instructions
 
 ### Setting Up n8n Workflow
